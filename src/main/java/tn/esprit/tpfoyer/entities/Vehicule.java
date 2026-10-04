@@ -6,6 +6,8 @@ import tn.esprit.tpfoyer.enums.CategorieVehicule;
 import tn.esprit.tpfoyer.enums.StatutVehicule;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -30,4 +32,19 @@ public class Vehicule {
 
     @Enumerated(EnumType.STRING)
     private StatutVehicule statut;
+
+    @ManyToOne
+    private Agence agence;
+
+    @ManyToMany
+    @Builder.Default
+    private Set<Equipement> equipements = new HashSet<>();
+
+    @OneToMany(mappedBy = "vehicule")
+    @Builder.Default
+    private Set<Reservation> reservations = new HashSet<>();
+
+    @OneToMany(mappedBy = "vehicule")
+    @Builder.Default
+    private Set<Maintenance> maintenances = new HashSet<>();
 }
